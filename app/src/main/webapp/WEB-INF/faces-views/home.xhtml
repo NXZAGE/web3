@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="primefaces" xmlns:comp="jakarta.faces.composite/components">
+<h:head>
+    <title>Index - LAB3</title>
+    <!-- Подключаем скомпилированный CSS -->
+    <h:outputStylesheet library="styles" name="css/home.css" />
+</h:head>
+
+
+<h:body>
+    <comp:header />
+
+    <div class="content main-wrapper">
+
+        <!-- Заголовок -->
+        <p:panel styleClass="server-time-title">
+            CURRENT SERVER TIME
+        </p:panel>
+
+        <!-- Ряд карточек -->
+        <div class="cards-row">
+
+            <!-- Левая карточка -->
+            <p:card styleClass="side-card">
+                <p:graphicImage name="img/image1.gif" styleClass="side-image" />
+            </p:card>
+
+            <!-- Центральная карточка -->
+            <p:card styleClass="clock-box main-card">
+
+                <h:panelGroup layout="block" styleClass="clock-container">
+
+                    <div class="time-block">
+                        <span class="label">TIME:</span>
+                        <p:clock mode="server" pattern="HH:mm:ss" styleClass="digital-time" />
+                    </div>
+
+                    <div class="date-block">
+                        <span class="label">DATE:</span>
+                        <p:clock mode="server" pattern="dd.MM.yyyy" styleClass="digital-date" />
+                    </div>
+
+                </h:panelGroup>
+
+            </p:card>
+
+            <!-- Правая карточка -->
+            <p:card styleClass="side-card">
+                <p:graphicImage name="img/image2.gif" styleClass="side-image" />
+            </p:card>
+
+        </div>
+
+        <!-- Кнопка -->
+        <div class="go-button-wrapper">
+            <p:button value="GO TO CONTROLS" styleClass="go-button" outcome="controls?faces-redirect=true" />
+        </div>
+
+    </div>
+</h:body>
+
+
+</html>

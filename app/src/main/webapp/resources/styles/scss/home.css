@@ -1,0 +1,178 @@
+@charset "UTF-8";
+* {
+  text-decoration: none;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.main-wrapper {
+  width: 80%;
+  margin: auto;
+  min-height: 100%;
+}
+
+.app-header.ui-toolbar {
+  background: var(--surface-card);
+  border: none;
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0.75rem 10%;
+}
+.app-header.ui-toolbar .ui-toolbar-group-left,
+.app-header.ui-toolbar .ui-toolbar-group-right {
+  display: flex;
+  align-items: center;
+}
+
+/* LEFT */
+.lab-title {
+  display: inline-flex;
+  align-items: flex-end;
+  line-height: 1;
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-color);
+}
+.lab-title::after {
+  content: ":471758";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-color-secondary);
+  line-height: 1;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* RIGHT */
+.person-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.person-name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.person-group {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Заголовок */
+.server-time-title {
+  width: 100%;
+  max-width: 60rem;
+  text-align: center;
+}
+.server-time-title .ui-panel-content {
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-size: 2.5rem;
+}
+
+/* Карточки */
+.cards-row {
+  display: flex;
+  width: 100%;
+  max-width: 60rem;
+  gap: 2rem;
+}
+
+.side-card,
+.main-card {
+  flex: 1;
+  display: flex;
+  aspect-ratio: 1/1;
+}
+
+/* Картинки */
+.side-card .ui-card-body {
+  flex: 1;
+  display: flex;
+}
+
+.side-image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+/* Центральный блок */
+.clock-box .ui-card-body {
+  flex: 1;
+  display: flex;
+}
+
+.clock-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 40rem;
+  height: 100%;
+}
+
+/* TIME / DATE */
+.time-block,
+.date-block {
+  font-size: 40rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between; /* подпись слева, часы справа */
+  gap: 1rem;
+}
+
+/* Подписи */
+.label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0.7;
+  letter-spacing: 0.3em;
+}
+
+/* Цифры */
+.digital-time {
+  font-weight: 700;
+}
+
+.digital-date {
+  font-weight: 500;
+}
+
+.clock-box .time-block .ui-clock,
+.clock-box .date-block .ui-clock {
+  font-size: 2rem; /* или responsive rem/em */
+  font-weight: 700;
+  border: none;
+}
+
+/* Кнопка */
+.go-button-wrapper .go-button .ui-button-text {
+  font-size: 2rem;
+  padding: 0.1rem;
+  font-weight: 500;
+}/*# sourceMappingURL=home.css.map */

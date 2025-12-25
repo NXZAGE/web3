@@ -1,0 +1,159 @@
+@charset "UTF-8";
+* {
+  text-decoration: none;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.main-wrapper {
+  width: 80%;
+  margin: auto;
+  min-height: 100%;
+}
+
+.app-header.ui-toolbar {
+  background: var(--surface-card);
+  border: none;
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0.75rem 10%;
+}
+.app-header.ui-toolbar .ui-toolbar-group-left,
+.app-header.ui-toolbar .ui-toolbar-group-right {
+  display: flex;
+  align-items: center;
+}
+
+/* LEFT */
+.lab-title {
+  display: inline-flex;
+  align-items: flex-end;
+  line-height: 1;
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-color);
+}
+.lab-title::after {
+  content: ":471758";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-color-secondary);
+  line-height: 1;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* RIGHT */
+.person-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.person-name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.person-group {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+}
+
+.form-card {
+  width: 100%;
+  margin: 0;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+}
+.form-card .ui-card-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+}
+.form-field .w-full {
+  width: 100%;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.slider-row .ui-inputnumber {
+  flex: 0 0 100px;
+  flex-shrink: 0;
+}
+.slider-row .ui-slider {
+  flex: 1 1 auto;
+  margin-right: 1rem;
+  position: relative;
+  /* 🔥 резерв под handle */
+  padding-right: 1.2rem;
+}
+.slider-row .ui-slider-handle {
+  box-sizing: border-box;
+}
+
+#canvas-object {
+  width: 460px;
+  height: 460px;
+  border: 1px solid black;
+  cursor: crosshair;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 6%;
+}
+
+.control-container,
+.canvas-container {
+  flex: 0 0 47%;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
+.canvas-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}/*# sourceMappingURL=controls.css.map */

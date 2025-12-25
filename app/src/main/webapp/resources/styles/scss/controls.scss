@@ -1,0 +1,23 @@
+@use 'base';
+@use 'header';
+@use 'control-panel';
+@use 'canvas';
+
+.main-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 6%;
+}
+
+.control-container, 
+.canvas-container {
+  flex: 0 0 47%;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
+.canvas-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

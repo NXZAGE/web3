@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="primefaces" xmlns:comp="jakarta.faces.composite/components">
+<h:head>
+  <title>Controls - LAB3</title>
+  <!-- Подключаем скомпилированный CSS -->
+  <script src="https://unpkg.com/konva@10/konva.min.js" />
+  <h:outputStylesheet library="styles" name="css/controls.css" />
+</h:head>
+
+
+<h:body>
+  <comp:header />
+
+  <div class="content main-wrapper">
+    <div class="control-container">
+      <h:form id="mainForm">
+        <p:card styleClass="form-card">
+
+          <f:facet name="title">
+            <span class="form-title">Parameters</span>
+          </f:facet>
+
+          <!-- X -->
+          <div class="form-row">
+            <div class="form-label">
+              <span>X</span>
+            </div>
+            <div class="form-field">
+              <p:selectOneMenu id="x" value="#{hitFormBean.x}" styleClass="w-full">
+                <f:selectItems value="#{arrayUtils.range(-2, 2, 0.5)}" />
+              </p:selectOneMenu>
+            </div>
+          </div>
+
+          <!-- Y -->
+          <div class="form-row">
+            <div class="form-label">
+              <span>Y</span>
+            </div>
+            <div class="form-field">
+              <p:inputText id="y" value="#{hitFormBean.y}" styleClass="w-full">
+                <f:validateDoubleRange minimum="-3" maximum="5" />
+              </p:inputText>
+            </div>
+          </div>
+
+          <!-- R -->
+          <div class="form-row">
+            <div class="form-label">
+              <span>R</span>
+            </div>
+            <div class="form-field slider-row">
+              <p:inputNumber id="r" value="#{hitFormBean.r}" minValue="1" maxValue="4" step="0.25" decimalPlaces="2" />
+
+              <p:slider for="r" minValue="1" maxValue="4" step="0.25" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <h:outputText value="#{globalBean.formStatus}" />
+          </div>
+
+          <!-- Submit -->
+          <div class="form-actions">
+            <p:commandButton value="Submit" icon="pi pi-check" action="#{hitFormBean.submit}" update="@form" />
+          </div>
+
+        </p:card>
+
+      </h:form>
+  </div>
+  <div class="canvas-container" id="canvas-container">
+    <div id="canvas-object"></div>  
+  </div>
+  </div>
+
+  <h:outputScript library="js" name="canvas.js"/> 
+</h:body>
+
+
+</html>

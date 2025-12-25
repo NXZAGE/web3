@@ -1,0 +1,113 @@
+@use "base";
+@use "header";
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+/* Заголовок */
+.server-time-title {
+    width: 100%;
+    max-width: 60rem;
+    text-align: center;
+
+    .ui-panel-content {
+        font-weight: 700;
+        letter-spacing: 0.2em;
+      font-size: 2.5rem;
+
+    }
+}
+
+/* Карточки */
+.cards-row {
+    display: flex;
+    width: 100%;
+    max-width: 60rem;
+    gap: 2rem;
+}
+
+.side-card,
+.main-card {
+    flex: 1;
+    display: flex;
+    aspect-ratio: 1/1;
+}
+
+/* Картинки */
+.side-card .ui-card-body {
+    flex: 1;
+    display: flex;
+}
+
+.side-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Центральный блок */
+.clock-box .ui-card-body {
+    flex: 1;
+    display: flex;
+}
+
+.clock-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    font-size: 40rem;
+    height:100%
+}
+
+/* TIME / DATE */
+.time-block,
+.date-block {
+    font-size: 40rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between; /* подпись слева, часы справа */
+    gap: 1rem;
+}
+
+/* Подписи */
+.label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    opacity: 0.7;
+    letter-spacing: 0.3em;
+}
+
+/* Цифры */
+.digital-time {
+    // font-size: 10rem;
+    font-weight: 700;
+}
+
+.digital-date {
+    // font-size: 10rem;
+    font-weight: 500;
+}
+
+.clock-box .time-block .ui-clock,
+.clock-box .date-block .ui-clock {
+    font-size: 2rem;   /* или responsive rem/em */
+    font-weight: 700;
+    border: none;
+}
+
+/* Кнопка */
+.go-button-wrapper {
+    // margin-top: 1rem;
+    .go-button .ui-button-text {
+      font-size: 2rem;
+      padding: 0.1rem;
+      font-weight: 500;
+    }
+}

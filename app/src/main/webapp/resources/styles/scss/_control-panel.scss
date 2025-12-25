@@ -1,0 +1,66 @@
+.form-card {
+  width: 100%;
+  margin: 0; // 🔥 нет отступа от control-container
+  aspect-ratio: 1/1; // card занимает весь control-container
+  display: flex;
+  flex-direction: column;
+
+  .ui-card-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+
+  .w-full {
+    width: 100%;
+  }
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .ui-inputnumber {
+    flex: 0 0 100px; // 🔥 важно
+    flex-shrink: 0;
+  }
+
+  .ui-slider {
+    flex: 1 1 auto;
+
+    margin-right: 1rem; // 🔥 чтобы не упирался в край контейнера
+    position: relative;
+
+    /* 🔥 резерв под handle */
+    padding-right: 1.2rem;
+  }
+
+  .ui-slider-handle {
+    box-sizing: border-box;
+  }
+}

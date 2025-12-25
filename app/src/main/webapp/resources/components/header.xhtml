@@ -1,0 +1,28 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cc="jakarta.faces.composite" xmlns:h="jakarta.faces.html"
+  xmlns:p="primefaces">
+
+
+<cc:interface name="header">
+  <!-- Нет входных атрибутов сейчас; их можно добавить по необходимости -->
+</cc:interface>
+
+
+<cc:implementation>
+  <p:toolbar styleClass="app-header">
+    <p:toolbarGroup align="left">
+        <span class="lab-title">LAB3</span>
+    </p:toolbarGroup>
+
+    <p:toolbarGroup align="right">
+        <div class="person-info">
+            <span class="person-name">Name Surname</span>
+            <span class="person-group">Group: P0000</span>
+        </div>
+    </p:toolbarGroup>
+</p:toolbar>
+</cc:implementation>
+
+
+</html>

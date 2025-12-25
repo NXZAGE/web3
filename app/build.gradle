@@ -1,0 +1,171 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+def wildflyHome = '/opt/wildfly'
+def deployDir = "${wildflyHome}/standalone/deployments/web3.war"
+def classesDeployDir = "${deployDir}/WEB-INF/classes"
+def markerFilePath = "${deployDir}.dodeploy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+     // ✅ Jakarta EE 11 API (WildFly уже имеет реализации)
+    providedCompile 'jakarta.platform:jakarta.jakartaee-api:11.0.0'
+    
+    // ✅ PrimeFaces для Jakarta EE 11 (версия 13+)
+    implementation 'org.primefaces:primefaces:15.0.0:jakarta'
+    
+    // ✅ Обязательные зависимости для PrimeFaces 13+
+    implementation 'commons-fileupload:commons-fileupload:1.5'
+    implementation 'org.owasp.encoder:encoder:1.3.1'
+
+    // OmniFaces
+    implementation 'org.omnifaces:omnifaces:4.7.1'
+
+    // JPA/Hibernate/PostgreSQL
+    compileOnly 'jakarta.persistence:jakarta.persistence-api:3.2.0'
+    implementation 'org.hibernate.orm:hibernate-core:7.1.11.Final'
+    runtimeOnly 'org.postgresql:postgresql:42.7.8'
+
+    // Extra Libs
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+    implementation 'ch.qos.logback:logback-classic:1.5.21'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+task createClassesDir {
+    doLast {
+        def classesDir = new File(classesDeployDir)
+        if (!classesDir.exists()) {
+            classesDir.mkdirs()
+        }
+    }
+}
+
+// ЕДИНСТВЕННАЯ задача для деплоя Java классов
+task hotDeploy(type: Copy) {
+    dependsOn classes, processResources, createClassesDir
+
+    from sourceSets.main.output.classesDirs
+    into "${deployDir}/WEB-INF/classes"
+
+    from sourceSets.main.output.resourcesDir
+    into "${deployDir}/WEB-INF/classes"
+
+    doLast {
+        // Создаем маркер для перезагрузки приложения
+        def marker = new File("${deployDir}.dodeploy")
+        if (!marker.exists()) {
+            marker.text = ''
+        }
+        
+        println "✅ Deployed at ${new Date()}"
+        println "📁 Classes: ${deployDir}/WEB-INF/classes"
+        println "🔄 WildFly should auto-reload (check server.log)"
+    }
+}
+
+task deployAll {
+    dependsOn classes, processResources
+    
+    doLast {
+        def DEPLOY = '/opt/wildfly/standalone/deployments/web3.war'
+        
+        println "🚀 Начинаем деплой в exploded директорию..."
+        
+        // 1. Очищаем старую директорию (опционально)
+        delete DEPLOY
+        
+        // 2. Создаем структуру директорий
+        mkdir "$DEPLOY/WEB-INF/lib"
+        mkdir "$DEPLOY/WEB-INF/classes"
+        
+        // 3. Копируем статику (xhtml, css, js и т.д.)
+        copy {
+            from 'src/main/webapp'
+            into DEPLOY
+            exclude '**/.gitkeep'
+        }
+        
+        // 4. Копируем скомпилированные классы
+        copy {
+            from sourceSets.main.output
+            into "$DEPLOY/WEB-INF/classes"
+        }
+        
+        // 5. Копируем ресурсы (persistence.xml, logback.xml и т.д.)
+        copy {
+            from sourceSets.main.resources
+            into "$DEPLOY/WEB-INF/classes"
+        }
+        
+        // 6. Копируем ВСЕ runtime зависимости (включая PrimeFaces)
+        copy {
+            from configurations.runtimeClasspath
+            into "$DEPLOY/WEB-INF/lib"
+            exclude 'jakarta.platform*.jar' // Исключаем Jakarta EE API (есть в WildFly)
+            exclude 'jakarta.faces*.jar'    // Исключаем JSF API (есть в WildFly)
+            exclude '**/jakarta.*.jar'  // Исключаем Jakarta EE API
+            exclude '**/javax.*.jar'    // Исключаем старые javax API
+        }
+        
+        // 7. Создаем маркер для перезагрузки
+        new File("${DEPLOY}.dodeploy").text = ''
+        
+        // 8. Выводим информацию о скопированных библиотеках
+        def libDir = new File("$DEPLOY/WEB-INF/lib")
+        if (libDir.exists()) {
+            println "📚 Скопированные библиотеки:"
+            libDir.eachFile { file ->
+                println "   - ${file.name} (${file.length()} bytes)"
+            }
+        }
+        
+        println "✅ Всё обновлено в $DEPLOY"
+        println "📦 Всего библиотек: ${libDir.listFiles()?.size() ?: 0}"
+    }
+}
+
+// Автоматическое отслеживание статики
+task watchStatic {
+    doLast {
+        println "👀 Слежу за webapp..."
+        
+        def lastCheck = System.currentTimeMillis()
+        def webappDir = file('src/main/webapp')
+        
+        while(true) {
+            def changed = false
+            
+            // Проверяем все файлы в webapp
+            fileTree(dir: webappDir).each { file ->
+                if (file.lastModified() > lastCheck) {
+                    changed = true
+                }
+            }
+            
+            if (changed) {
+                println "📝 Обновляю статику..."
+                copy {
+                    from webappDir
+                    into '/opt/wildfly/standalone/deployments/web3.war'
+                    exclude 'WEB-INF/classes/**'
+                }
+                lastCheck = System.currentTimeMillis()
+            }
+            
+            sleep(1000)
+        }
+    }
+}

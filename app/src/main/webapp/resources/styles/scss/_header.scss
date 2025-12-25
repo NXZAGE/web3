@@ -1,0 +1,61 @@
+$lab-task-number: ':471758';
+
+.app-header.ui-toolbar {
+  background: var(--surface-card);
+  border: none;
+  border-bottom: 1px solid var(--surface-border);
+
+  padding: 0.75rem 10%;
+
+  .ui-toolbar-group-left,
+  .ui-toolbar-group-right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* LEFT */
+.lab-title {
+  display: inline-flex;
+  align-items: flex-end; // 🔥 прижимаем псевдоэлемент к низу
+
+  line-height: 1;
+
+  font-size: 2.6rem;     // LAB3 крупнее
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-color);
+
+  &::after {
+    content: $lab-task-number;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--text-color-secondary);
+
+  line-height: 1;
+
+    padding-left: 0;     // нет отступа
+    margin-left: 0;
+  }
+}
+
+/* RIGHT */
+.person-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.person-name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.person-group {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+}
