@@ -1,5 +1,6 @@
 @charset "UTF-8";
 * {
+  outline: 1px solid red;
   text-decoration: none;
   margin: 0;
 }

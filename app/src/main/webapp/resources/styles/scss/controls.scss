@@ -5,8 +5,13 @@
 
 .main-wrapper {
   display: flex;
+  flex-direction: column;
+}
+
+.main-panel-wrapper {
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  gap: 6%;
 }
 
 .control-container, 
