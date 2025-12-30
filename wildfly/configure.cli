@@ -1,0 +1,17 @@
+embed-server --std-out=echo
+
+/subsystem=datasources/jdbc-driver=postgresql:add( \
+    driver-name=postgresql, \ 
+    driver-module-name=org.postgresql, \
+    driver-class-name=org.postgresql.Driver \
+)
+
+/subsystem=datasources/data-source=PostgresDS:add( \
+    jndi-name=java:/jdbc/PostgresDS, \
+    connection-url=jdbc:postgresql://postgres:5432/appdb, \
+    driver-name=postgresql, \
+    user-name=appuser, \ 
+    password=secret \ 
+)
+
+stop-embedded-server

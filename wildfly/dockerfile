@@ -1,0 +1,16 @@
+FROM quay.io/wildfly/wildfly:37.0.1.Final-jdk21
+
+# JDBC модуль
+COPY wildfly/modules /opt/jboss/wildfly/modules
+
+# CLI
+COPY wildfly/configure.cli /opt/jboss/wildfly/
+
+# ⚠️ ВАЖНО: WAR копируем ПОСЛЕ конфигурации
+RUN /opt/jboss/wildfly/bin/jboss-cli.sh --file=/opt/jboss/wildfly/configure.cli && \
+    rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history
+
+# деплой приложения
+COPY app/build/libs/app.war /opt/jboss/wildfly/standalone/deployments/app.war
+
+CMD ["/opt/jboss/wildfly/bin/standalone.sh","-b","0.0.0.0"]

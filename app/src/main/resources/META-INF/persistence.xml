@@ -8,8 +8,8 @@
         <jta-data-source>java:/jdbc/PostgresDS</jta-data-source>
 
         <properties>
-            <property name="hibernate.default_schema" value="s466828" />
-            <property name="jakarta.persistence.schema-generation.database.action" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>
