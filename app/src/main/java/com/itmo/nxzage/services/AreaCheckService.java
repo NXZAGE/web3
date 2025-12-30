@@ -9,7 +9,6 @@ public class AreaCheckService {
             return false;
         }
 
-        // TODO fixit
         boolean isTriangleHit = (x <= 0 && y >= 0) && (y <= (x + r) / 2.0);
         boolean isQuarterCircleHit = (x <= 0 && y <= 0) && (x * x + y * y <= (r / 2.0) * (r / 2.0));
         boolean isSquareHit = (x >= 0 && y <= 0) && (x <= r) && (y >= -r);

@@ -10,10 +10,11 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class HitAcceptService {
-    @Inject AreaCheckService areaChecker;
-    @Inject HitRepository repository;
-    @Inject RegistryBean registry;
+    @Inject private AreaCheckService areaChecker;
+    @Inject private HitRepository repository;
+    @Inject private RegistryBean registry;
 
+    @Transactional
     public Hit accept(double x, double y, double r) {
         long startStamp = System.nanoTime();
         var hit = new Hit();
@@ -27,7 +28,6 @@ public class HitAcceptService {
         return commit(hit);
     }
 
-    @Transactional
     private Hit commit(Hit hit) {
         hit = repository.save(hit);
         registry.getHitLog().push(hit);

@@ -67,7 +67,7 @@
                   update="hitDataTable growl" oncomplete="handleHitForm(xhr, status, args)" />
                 <p:remoteCommand name="submitHit" actionListener="#{hitFormBean.remoteSubmit}" process="@this"
                   update="hitDataTable growl" oncomplete="handleHitForm(xhr, status, args)" />
-                <p:remoteCommand name="getHits" actionListener="#{registry.getHits}" process="@this" update="@none"
+                <p:remoteCommand name="getHits" actionListener="#{registry.getHitsRemote}" process="@this" update="@none"
                   oncomplete="handleGetHits(xhr, status, args)" />
               </div>
 
@@ -86,8 +86,8 @@
     </div>
 
     <div class="log-table-wrapper">
-      <p:dataTable id="hitDataTable" value="#{registry.hitLog}" var="log" paginator="true" paginatorPosition="bottom"
-        rows="8">
+      <p:dataTable id="hitDataTable" value="#{registry.getHits()}" var="log" paginator="true" paginatorPosition="bottom"
+        rows="5" lazy="false">
         <f:facet name="header">
           History
         </f:facet>
