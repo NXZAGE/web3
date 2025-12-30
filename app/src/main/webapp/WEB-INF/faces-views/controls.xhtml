@@ -4,7 +4,6 @@
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="primefaces" xmlns:comp="jakarta.faces.composite/components">
 <h:head>
   <title>Controls - LAB3</title>
-  <!-- Подключаем скомпилированный CSS -->
   <script src="https://unpkg.com/konva@10/konva.min.js" />
   <h:outputStylesheet library="styles" name="css/controls.css" />
 </h:head>
@@ -57,18 +56,24 @@
                 <p:inputNumber id="r" value="#{hitFormBean.r}" minValue="1" maxValue="4" step="0.25"
                   decimalPlaces="2" />
 
-                <p:slider for="r" minValue="1" maxValue="4" step="0.25" />
+                <p:slider for="r" minValue="1" maxValue="4" step="0.25" onSlideEnd="handleRadiusMutation(ui.value)" />
               </div>
             </div>
 
-            <div class="form-row">
-              <h:outputText value="#{globalBean.formStatus}" />
-            </div>
-
             <!-- Submit -->
-            <div class="form-actions">
-              <p:commandButton value="Submit" icon="pi pi-check" action="#{hitFormBean.submit}" process="@form"
-                update="hitDataList" oncomplete="someHandler" />
+            <div class="actions">
+              <div class="form-actions">
+                <p:commandButton value="Submit" icon="pi pi-check" action="#{hitFormBean.submit}" process="@form"
+                  update="hitDataTable growl" oncomplete="handleHitForm(xhr, status, args)" />
+                <p:remoteCommand name="submitHit" actionListener="#{hitFormBean.remoteSubmit}" process="@this"
+                  update="hitDataTable growl" oncomplete="handleHitForm(xhr, status, args)" />
+                <p:remoteCommand name="getHits" actionListener="#{registry.getHits}" process="@this" update="@none"
+                  oncomplete="handleGetHits(xhr, status, args)" />
+              </div>
+
+              <div class="page-actions">
+                <p:button value="Go Home" icon="pi pi-home" outcome="home" />
+              </div>
             </div>
 
           </p:card>
@@ -80,14 +85,45 @@
       </div>
     </div>
 
-    <div class="table">
-      <p:dataList id="hitDataList" value="#{registry.hitLog}" var="log" paginator="true" paginatorPosition="bottom" rows="8" >
-        #{log.x} | #{log. y} | #{log.r} | #{log.hit} | #{log.timestamp}
-        <br />
-      </p:dataList>
+    <div class="log-table-wrapper">
+      <p:dataTable id="hitDataTable" value="#{registry.hitLog}" var="log" paginator="true" paginatorPosition="bottom"
+        rows="8">
+        <f:facet name="header">
+          History
+        </f:facet>
+
+        <p:column headerText="X" width="14%">
+          <h:outputText value="#{log.x}">
+            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+          </h:outputText>
+        </p:column>
+        <p:column headerText="Y" width="14%">
+          <h:outputText value="#{log.y}">
+            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+          </h:outputText>
+        </p:column>
+        <p:column headerText="R" width="14%">
+          <h:outputText value="#{log.r}">
+            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+          </h:outputText>
+        </p:column>
+        <p:column headerText="HIT" width="14%"> 
+          #{log.hit ? "HIT" : "MISS"} 
+        </p:column>
+        <p:column headerText="EXECTIME" width="19%">
+          <h:outputText value="#{log.exectime / 1000000 }">
+            <f:convertNumber maxFractionDigits="3" minFractionDigits="3" />
+          </h:outputText>
+          <h:outputText value=" ms"/>
+        </p:column>
+        <p:column headerText="TIMESTAMP" width="25%" style="text-align: right;" > #{ datetime.formatTimestamp(log.timestamp) } </p:column>
+      </p:dataTable>
     </div>
   </div>
 
+  <p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+  <h:outputScript library="js" name="validation.js" />
+  <h:outputScript library="js" name="hit_registry.js" />
   <h:outputScript library="js" name="formController.js" />
   <h:outputScript library="js" name="handler.js" />
   <h:outputScript library="js" name="canvas.js" />

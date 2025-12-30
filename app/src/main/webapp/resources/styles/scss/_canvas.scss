@@ -5,7 +5,7 @@ $container-border-color: black;
 #canvas-object {
   width: props.$canvas-width;
   height: props.$canvas-height;
-  border: 1px solid $container-border-color;
+  // border: 1px solid $container-border-color;
   cursor: crosshair;
   // margin: 20px auto;
 }
